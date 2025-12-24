@@ -1,4 +1,4 @@
-import { parseCSVData } from './csvParser';
+import { parseCSVData } from './csv-parser.service';
 import { Cutoff } from '@/types';
 
 let cachedCutoffs: Cutoff[] | null = null;
