@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ChatMessage } from '@/lib/types';
+import { ChatMessage } from '@/types';
 import { Sparkles } from 'lucide-react';
 
 interface MessageBubbleProps {
