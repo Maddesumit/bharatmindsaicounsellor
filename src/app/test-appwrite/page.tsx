@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { isAppwriteConfigured } from '@/lib/appwrite';
+import { isAppwriteConfigured } from '@/config/appwrite.config';
 import { CheckCircle, XCircle, Loader2, AlertTriangle } from 'lucide-react';
 
 export default function AppwriteTestPage() {
@@ -50,8 +50,8 @@ export default function AppwriteTestPage() {
 
                 {/* Overall Status */}
                 <div className={`p-6 rounded-2xl mb-6 ${status?.configured
-                        ? 'bg-green-500 bg-opacity-10 border-2 border-green-500'
-                        : 'bg-red-500 bg-opacity-10 border-2 border-red-500'
+                    ? 'bg-green-500 bg-opacity-10 border-2 border-green-500'
+                    : 'bg-red-500 bg-opacity-10 border-2 border-red-500'
                     }`}>
                     <div className="flex items-center gap-3">
                         {status?.configured ? (
