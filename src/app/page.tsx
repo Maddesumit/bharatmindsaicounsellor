@@ -3,17 +3,38 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   Sparkles, Brain, Target, FileText, TrendingUp, Users, Award, ArrowRight,
   CheckCircle, Zap, Menu, X, ChevronDown, Star, Check, AlertTriangle
 } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
 
   const toggleAccordion = (index: number) => {
     setActiveAccordion(activeAccordion === index ? null : index);
+  };
+
+  const handleRegistrationClick = async () => {
+    try {
+      const { getCurrentUser } = await import('@/services/auth');
+      const user = await getCurrentUser();
+
+      if (user) {
+        // User is authenticated, go to registration
+        router.push('/registration');
+      } else {
+        // User is not authenticated, go to auth page
+        router.push('/auth');
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+      // On error, redirect to auth page
+      router.push('/auth');
+    }
   };
 
   return (
@@ -134,16 +155,16 @@ export default function Home() {
 
               {/* CTA Button */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/registration"
-                  className="inline-flex items-center justify-center gap-3 btn-gradient-yellow-orange text-white px-10 py-5 rounded-full font-bold hover:scale-105 transition-transform shadow-2xl btn-glow"
+                <button
+                  onClick={handleRegistrationClick}
+                  className="inline-flex items-center justify-center gap-3 btn-gradient-yellow-orange text-white px-10 py-5 rounded-full font-bold hover:scale-105 transition-transform shadow-2xl btn-glow cursor-pointer"
                 >
                   <span className="text-2xl">🤖</span>
                   <div className="text-left">
                     <div className="text-base font-bold">Try our Karnataka Based AI Counsellor</div>
                     <div className="text-xs opacity-90">Get Personalized Guidance Now</div>
                   </div>
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -183,12 +204,12 @@ export default function Home() {
                     </div>
 
                     {/* CTA */}
-                    <Link
-                      href="/registration"
-                      className="btn-gradient-yellow-orange text-white px-6 py-3 rounded-full font-bold text-sm text-center hover:scale-105 transition-transform"
+                    <button
+                      onClick={handleRegistrationClick}
+                      className="btn-gradient-yellow-orange text-white px-6 py-3 rounded-full font-bold text-sm text-center hover:scale-105 transition-transform cursor-pointer"
                     >
                       Start Counselling →
-                    </Link>
+                    </button>
 
                     {/* Mini Stats */}
                     <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t">
@@ -360,12 +381,12 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <Link
-                  href="/registration"
-                  className="btn-gradient-yellow-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl whitespace-nowrap"
+                <button
+                  onClick={handleRegistrationClick}
+                  className="btn-gradient-yellow-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl whitespace-nowrap cursor-pointer"
                 >
                   Get Expert Help Now →
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -639,12 +660,12 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/registration"
-                className="block w-full text-center bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-full text-gray-900 font-bold transition-all"
+              <button
+                onClick={handleRegistrationClick}
+                className="block w-full text-center bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-full text-gray-900 font-bold transition-all cursor-pointer"
               >
                 Get Started Free
-              </Link>
+              </button>
             </div>
 
             {/* Premium Plan */}

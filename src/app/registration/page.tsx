@@ -67,10 +67,36 @@ export default function RegistrationPage() {
     const [currentRankCourse, setCurrentRankCourse] = React.useState('');
     const [needsPracticalRank, setNeedsPracticalRank] = React.useState(false);
     const [collectedRankCourses, setCollectedRankCourses] = React.useState<string[]>([]);
+    const [isCheckingAuth, setIsCheckingAuth] = React.useState(true);
+
+    // Check authentication on mount
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const { getCurrentUser } = await import('@/services/auth');
+                const user = await getCurrentUser();
+
+                if (!user) {
+                    // User is not authenticated, redirect to auth page
+                    router.push('/auth');
+                } else {
+                    // User is authenticated, proceed with initialization
+                    setIsCheckingAuth(false);
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                router.push('/auth');
+            }
+        };
+
+        checkAuth();
+    }, [router]);
 
     useEffect(() => {
-        initializeUser();
-    }, []);
+        if (!isCheckingAuth) {
+            initializeUser();
+        }
+    }, [isCheckingAuth]);
 
     useEffect(() => {
         // Auto-scroll to bottom when new messages arrive
@@ -418,6 +444,18 @@ export default function RegistrationPage() {
 
     const lastMessage = messages[messages.length - 1];
     const showQuickReplies = lastMessage?.role === 'bot' && lastMessage?.options && !showMultiSelect;
+
+    // Show loading state while checking authentication
+    if (isCheckingAuth) {
+        return (
+            <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+                    <p className="text-white text-lg">Verifying authentication...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
