@@ -98,7 +98,7 @@ export default function AppwriteTestPage() {
                                         <>
                                             <CheckCircle className="w-4 h-4 text-green-500" />
                                             <span className="text-green-400 font-mono text-sm">
-                                                {item.value.substring(0, 20)}...
+                                                {item.value?.substring(0, 20)}...
                                             </span>
                                         </>
                                     )}
