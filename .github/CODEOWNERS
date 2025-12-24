@@ -1,0 +1,29 @@
+# Global owners (Founder/Tech Lead)
+* @yourusername
+
+# Frontend Team
+/src/app/(marketing)/ @frontend-lead
+/src/app/(dashboard)/ @frontend-lead
+/src/app/(auth)/ @frontend-lead
+/src/components/ @frontend-lead
+/src/lib/hooks/ @frontend-lead
+/src/styles/ @frontend-lead
+
+# Backend Team
+/src/app/api/ @backend-lead
+/src/lib/services/ @backend-lead
+/src/lib/config/ @backend-lead
+/src/lib/validations/ @backend-lead
+
+# Shared - Requires both teams
+/src/types/ @frontend-lead @backend-lead
+
+# Documentation - Everyone can contribute
+/docs/ @frontend-lead @backend-lead
+
+# Configuration - Only you
+/.github/ @yourusername
+/.env.example @yourusername
+/next.config.ts @yourusername
+/tsconfig.json @yourusername
+/package.json @yourusername
